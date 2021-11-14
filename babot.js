@@ -22,6 +22,7 @@ const options = { year: 'numeric', month: 'long', day: 'numeric' }; // for date 
 // Initialize Discord Bot
 const bot = new Client({ intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MESSAGES, Intents.FLAGS.DIRECT_MESSAGES], partials: ["CHANNEL"]});
 
+
 const { Console } = require('console');
 const { SSL_OP_SSLEAY_080_CLIENT_DH_BUG } = require('constants');
 /* [ 	["christmas", 12, 25, 0, 0], 
@@ -39,7 +40,7 @@ const { SSL_OP_SSLEAY_080_CLIENT_DH_BUG } = require('constants');
 
 bot.login(babadata.token); //login
 
-//not shure what this does but it was in jeremy's code so
+//not sure what this does but it was in jeremy's code so
 bot.on('ready', function (evt) 
 {
 	console.log('Connected');
@@ -731,6 +732,7 @@ bot.on('messageCreate', message =>
 		}
 	}
 });
+
 
 //async function tempoutput(msg, lp)  //temporary output function for testing
 //{
@@ -1626,6 +1628,7 @@ const download = (url, path, callback) =>
 
   
 //not shure what this does also but it was in jeremy's code so
+
 var cleanupFn = function cleanup() 
 {
 	  console.log("Logging off");
