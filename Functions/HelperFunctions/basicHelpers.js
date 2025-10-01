@@ -172,7 +172,7 @@ function MonthsPlus(guild, d1)
 	if (dnow.getHours() == 0 && dnow.getMinutes() < 3)
 	{
 		console.log("Setting Holiday Channel Description to Progress");
-		setChannelDescriptionToProgress(guild, dnow);
+		setTimeout(function() {setChannelDescriptionToProgress(guild, dnow);}, 1000 * 60 * 15); //15 minutes later
 	}
 }
 
