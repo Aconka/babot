@@ -154,6 +154,8 @@ function reminderCompleted(reminderItem)
         content: reminderItem.EnableAtPerson ? "<@" + reminderItem.UserID + "> `Baba Reminds You:`\n" + reminderItem.Message : reminderItem.Message,
     };
 
+    console.log(objectiveSender);
+
     var AdditionalMessagesToSend = [];
 
     if (reminderItem.Files != null && reminderItem.Files.length > 0)
