@@ -184,7 +184,7 @@ function TextCommandBackup(bot, message, sentvalid, msgContent, g)
 
 			setTimeout(function()
 			{
-				let rawdata = fs.readFileSync(__dirname + '/babotdata.json');
+				let rawdata = fs.readFileSync(__dirname.replace("TextCommands", "") + '/babotdata.json');
 				babadata = JSON.parse(rawdata);
 				message.author.send("```HC: " + babadata.holidaychan + "\nHV: " + babadata.holidayval + "```");
 			}, 1000);

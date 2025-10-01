@@ -167,7 +167,13 @@ function MonthsPlus(guild, d1)
 			SetHolidayChan(guild, "defeat");
 	}
 
-	setChannelDescriptionToProgress(guild)
+	var dnow = getD1(true);
+	// only call this at midnight
+	if (dnow.getHours() == 0 && dnow.getMinutes() < 3)
+	{
+		console.log("Setting Holiday Channel Description to Progress");
+		setChannelDescriptionToProgress(guild, dnow);
+	}
 }
 
 function setChannelDescriptionToProgress(guild, d1)
@@ -303,7 +309,8 @@ function SetHolidayChan(guild, name, resetid = -1)
 	console.log("SetHolidayChan: " + name + " " + resetid);
 
 	let to = 0;
-	var dirni = __dirname.replace("HelperFunctions", "");
+	var dirni = __dirname.replace("Functions\\HelperFunctions", "");
+	console.log(dirni);
 	let rawdata = fs.readFileSync(dirni + 'babotdata.json');
 	let baadata = JSON.parse(rawdata);
 
@@ -323,6 +330,7 @@ function SetHolidayChan(guild, name, resetid = -1)
 			switch(name)
 			{
 				case "spook": //Spooky
+					console.log("Spooky Time!");
 					chanyu.setName("🎃👻💀🕸️ ⍑ᔑꖎꖎ𝙹∴ᒷᒷリ 🕸️💀👻🎃")
 						.then((newChannel) =>
 						console.log(`The channel's new name is ${newChannel.name}`),
@@ -330,6 +338,7 @@ function SetHolidayChan(guild, name, resetid = -1)
 					.catch(console.error);
 					break;
 				case "thanks": //Thanks
+					console.log("Thanksgiving Time!");
 					chanyu.setName("🦃 🇹🇭🇦🇳🇰🇸🇬🇮🇻🇮🇳🇬 3️⃣: 🇹🇭🇪 🇷🇪🇹🇺🇷🇳 🇴🇫 🇹🇭🇪 🇹🇺🇷🇰🇪🇾 🦃")
 						.then((newChannel) =>
 						console.log(`The channel's new name is ${newChannel.name}`),
@@ -337,6 +346,7 @@ function SetHolidayChan(guild, name, resetid = -1)
 					.catch(console.error);
 					break;
 				case "crimbo": //Crimbo
+					console.log("Crimbo Time!");
 					chanyu.setName("🎄 𓀒 ℂ𝕙𝕣𝕚𝕤𝕥𝕞𝕒𝕤: ℍℍ𝔾𝕣𝕖𝕘𝕘 𝔼𝕕𝕚𝕥𝕚𝕠𝕟 𓀒 🎄")
 						.then((newChannel) =>
 						console.log(`The channel's new name is ${newChannel.name}`),
@@ -344,6 +354,7 @@ function SetHolidayChan(guild, name, resetid = -1)
 					.catch(console.error);
 					break;
 				case "defeat": //New Year
+					console.log("New Year Time!");
 					chanyu.setName("🎉🚨 Нарру Пеаг Уеаг 🚨🎉") //🆃🅷🆄🆁🆂🅳🅰🆈, J₳₦Ʉ₳ⱤɎ 1🅢ⓣ, 2️⃣0️⃣2️⃣6️⃣ - change to 2027 because i found funnier one for 2026
 						.then((newChannel) =>
 						console.log(`The channel's new name is ${newChannel.name}`),
@@ -422,7 +433,7 @@ function SetHolidayChan(guild, name, resetid = -1)
 	setTimeout(function()
 	{
 		let n = JSON.stringify(baadata)
-		var dirni = __dirname.replace("HelperFunctions", "");
+		var dirni = __dirname.replace("Functions\\HelperFunctions", "");
 		fs.writeFileSync(dirni + 'babotdata.json', n);
 	}, to)
 	babadata = baadata;
@@ -489,8 +500,8 @@ function CreateChannel(server, name, d1)
 					}
 					).then(result => {
 						console.log('Here is channel id', result.id)
-						SetHolidayChan(server, "null", result.id)
-						setTimeout(function(){MonthsPlus(server, d1)}, 200);
+						setTimeout(function(){SetHolidayChan(server, "null", result.id)}, 200);
+						setTimeout(function(){MonthsPlus(server, d1)}, 400);
 					})
 
 					return;
@@ -716,12 +727,11 @@ async function preformEasterEggs(message, msgContent, bot)
 	pleaseChecker(message, msgContent, ames);
 
 	//console.log("rct: " + rct);
-	var d1 = getD1();
-	// if april 1st run extremeEmoji(message, msgContent);
-	if (d1.getMonth() == 3 && d1.getDate() == 1)
+	var d1 = getD1(true);
+	if ((d1.getMonth() === 2 && (d1.getDate() === 31 && d1.getHours() >= 13)) || (d1.getMonth() === 3 && d1.getDate() === 1))
 	{
 		var maxemoji = 20;
-		extremeEmoji(message, msgContent, maxemoji-rct);
+		extremeEmoji(message, msgContent, maxemoji - rct);
 	}
 
 	if (msgContent.includes("i request an oven at this moment"))

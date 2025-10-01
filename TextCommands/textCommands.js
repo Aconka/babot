@@ -71,12 +71,12 @@ async function babaMessage(bot, message)
 	
 	if (babadata.holidaychan == null)
 	{
-		let rawdata = fs.readFileSync(__dirname + '/babotdata.json');
+		let rawdata = fs.readFileSync(__dirname.replace("TextCommands", "") + '/babotdata.json');
 		let baadata = JSON.parse(rawdata);
 		baadata.holidaychan = "0";
 		baadata.holidayval = "null";
 		let n = JSON.stringify(baadata)
-		fs.writeFileSync(__dirname + '/babotdata.json', n);
+		fs.writeFileSync(__dirname.replace("TextCommands", "") + '/babotdata.json', n);
 
 		babadata = baadata;
 	}
@@ -85,7 +85,7 @@ async function babaMessage(bot, message)
 
 	if(msgContent.includes(yr - 1) && msgContent.includes("560231259842805770") && msgContent.includes("563063109422415872") && !message.author.bot && message.author.id == "360228104997961740") //if message contains baba and is not from bot
 	{
-		let rawdata = fs.readFileSync(__dirname + '/babotdata.json');
+		let rawdata = fs.readFileSync(__dirname.replace("TextCommands", "") + '/babotdata.json');
 		let baadata = JSON.parse(rawdata);
 
 		babadata = baadata;
