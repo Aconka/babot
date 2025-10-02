@@ -52,6 +52,7 @@ function pingConnection()
                 {
                     console.log("Connection is not alive", false, true);
                     resolve("ERROR");
+                    con = null;
                 }
                 else
                 {
@@ -247,10 +248,10 @@ async function callSQLQuery(query)
                 }
                 else 
                 {
+                    global.dbAccess[1] = true;
                     if (timeoutCT > 0)
                     {
                         timeoutCT = 0;
-                        global.dbAccess[1] = true;
                         console.log("Timeout CT Reset", false, true);
                     }
                     resolve(result);
@@ -1395,7 +1396,7 @@ function LoadReminderCache()
                     "Date": ctimez,
                     "ChannelID": res.ChannelID,
                     "UserID": res.UserID,
-                    "ThreadParentID": res.ThreadParentID,
+                    "ThreadParentID": res.ThreadParentID == "null" ? null : res.ThreadParentID,
                     "EnableAtPerson": res.EnabledAtPerson,
                     "State": "Pending",
                     "ID": res.ID,
@@ -2413,8 +2414,9 @@ function AddReminderToDB(reminderItem)
     return new Promise((resolve, reject) =>
     {
         var testIndex = babadata.testing === undefined ? false : true;
+        var threadParentID = reminderItem.ThreadParentID == "null" ? null : reminderItem.ThreadParentID;
 
-        var query = `Insert into reminders (Source, Message, UserID, Files, Date, ChannelID, ThreadParentID, EnabledAtPerson, ID, Testing) VALUES ("${reminderItem.Source}", "${reminderItem.Message}", "${reminderItem.UserID}", "${fileString}", "${dtsrart}", "${reminderItem.ChannelID}", "${reminderItem.ThreadParentID}", ${reminderItem.EnableAtPerson}, "${reminderItem.ID}", ${testIndex})`;
+        var query = `Insert into reminders (Source, Message, UserID, Files, Date, ChannelID, ThreadParentID, EnabledAtPerson, ID, Testing) VALUES ("${reminderItem.Source}", "${reminderItem.Message}", "${reminderItem.UserID}", "${fileString}", "${dtsrart}", "${reminderItem.ChannelID}", "${threadParentID}", ${reminderItem.EnableAtPerson}, "${reminderItem.ID}", ${testIndex})`;
         callSQLQuery(query)
         .then(() => 
         {
@@ -2439,7 +2441,9 @@ function EditReminderInDB(reminderItem)
 
     return new Promise((resolve, reject) =>
     {
-        var query = `Update reminders Set Source = "${reminderItem.Source}", Message = "${reminderItem.Message}", Files = "${fileString}", Date = "${dtsrart}", ChannelID = "${reminderItem.ChannelID}", ThreadParentID = "${reminderItem.ThreadParentID}", EnabledAtPerson = ${reminderItem.EnableAtPerson} WHERE ID = "${reminderItem.ID}"`;
+        var threadParentID = reminderItem.ThreadParentID == "null" ? null : reminderItem.ThreadParentID;
+
+        var query = `Update reminders Set Source = "${reminderItem.Source}", Message = "${reminderItem.Message}", Files = "${fileString}", Date = "${dtsrart}", ChannelID = "${reminderItem.ChannelID}", ThreadParentID = "${threadParentID}", EnabledAtPerson = ${reminderItem.EnableAtPerson} WHERE ID = "${reminderItem.ID}"`;
         callSQLQuery(query)
         .then(() => 
         {
