@@ -309,7 +309,7 @@ function SetHolidayChan(guild, name, resetid = -1)
 	console.log("SetHolidayChan: " + name + " " + resetid);
 
 	let to = 0;
-	var dirni = __dirname.replace("Functions\\HelperFunctions", "");
+	var dirni = __dirname.replace("Functions/HelperFunctions", "");
 	console.log(dirni);
 	let rawdata = fs.readFileSync(dirni + '/babotdata.json');
 	let baadata = JSON.parse(rawdata);
@@ -433,7 +433,7 @@ function SetHolidayChan(guild, name, resetid = -1)
 	setTimeout(function()
 	{
 		let n = JSON.stringify(baadata)
-		var dirni = __dirname.replace("Functions\\HelperFunctions", "");
+		var dirni = __dirname.replace("Functions/HelperFunctions", "");
 		fs.writeFileSync(dirni + '/babotdata.json', n);
 	}, to)
 	babadata = baadata;
