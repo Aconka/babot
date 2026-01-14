@@ -646,6 +646,21 @@ function TextCommandBackup(bot, message, sentvalid, msgContent, g)
 			// send attachment
 			message.author.send({ files: [{ attachment: Buffer.from(logFile), name: 'DBdebug.log' }] });
 		}
+		else if (msgContent.includes("getthemfries"))
+		{
+			var fridayFile = fs.readFileSync(babadata.datalocation + "fridayCounter.json");
+			// send attachment
+			message.author.send({ files: [{ attachment: Buffer.from(fridayFile), name: 'fridayCounter.json' }] });
+			var fridayMessagesFile = fs.readFileSync(babadata.datalocation + "fridaymessages.json");
+			// send attachment
+			message.author.send({ files: [{ attachment: Buffer.from(fridayMessagesFile), name: 'fridaymessages.json' }] });
+		}
+		else if (msgContent.includes("emptythefriesbasket"))
+		{
+			// reset the fridaycounter.json and fridaymessages.json to empty
+			fs.writeFileSync(babadata.datalocation + "fridayCounter.json", "{}");
+			fs.writeFileSync(babadata.datalocation + "fridaymessages.json", "{}");
+		}
 		else if (msgContent.includes("treecapitator"))
 		{
 			// reset the debug log to empty

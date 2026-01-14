@@ -309,7 +309,7 @@ function SetHolidayChan(guild, name, resetid = -1)
 	console.log("SetHolidayChan: " + name + " " + resetid);
 
 	let to = 0;
-	var dirni = __dirname.replace("Functions/HelperFunctions", "");
+	var dirni = __dirname.replace("Functions/HelperFunctions", "").replace("Functions\\HelperFunctions", "");
 	console.log(dirni);
 	let rawdata = fs.readFileSync(dirni + '/babotdata.json');
 	let baadata = JSON.parse(rawdata);
@@ -331,7 +331,7 @@ function SetHolidayChan(guild, name, resetid = -1)
 			{
 				case "spook": //Spooky
 					console.log("Spooky Time!");
-					chanyu.setName("🎃👻💀🕸️ ⍑ᔑꖎꖎ𝙹∴ᒷᒷリ 🕸️💀👻🎃")
+					chanyu.setName("🎃👻💀🕸️ 𝕳𝖆𝖑𝖑𝖔𝖜𝖘 𝕰𝖛𝖊 🕸️💀👻🎃")
 						.then((newChannel) =>
 						console.log(`The channel's new name is ${newChannel.name}`),
 					)
@@ -339,7 +339,7 @@ function SetHolidayChan(guild, name, resetid = -1)
 					break;
 				case "thanks": //Thanks
 					console.log("Thanksgiving Time!");
-					chanyu.setName("🦃 🇹🇭🇦🇳🇰🇸🇬🇮🇻🇮🇳🇬 3️⃣: 🇹🇭🇪 🇷🇪🇹🇺🇷🇳 🇴🇫 🇹🇭🇪 🇹🇺🇷🇰🇪🇾 🦃")
+					chanyu.setName("🌽 ᵀʰᵃⁿᵏˢᵍⁱᵛⁱⁿᵍ ⁴: ᴹⁱˢˢⁱⁿᵍ ᵀᵁᴿᴷᴱʸ 🌽") //🦃
 						.then((newChannel) =>
 						console.log(`The channel's new name is ${newChannel.name}`),
 					)
@@ -347,7 +347,7 @@ function SetHolidayChan(guild, name, resetid = -1)
 					break;
 				case "crimbo": //Crimbo
 					console.log("Crimbo Time!");
-					chanyu.setName("🎄 𓀒 ℂ𝕙𝕣𝕚𝕤𝕥𝕞𝕒𝕤: ℍℍ𝔾𝕣𝕖𝕘𝕘 𝔼𝕕𝕚𝕥𝕚𝕠𝕟 𓀒 🎄")
+					chanyu.setName("🎄 𓀒 匚卄尺丨丂ㄒ爪卂丂  ㄒㄩ尺ㄒㄥ乇  乇ᗪ丨ㄒ丨ㄖ几 𓀒 🎄")
 						.then((newChannel) =>
 						console.log(`The channel's new name is ${newChannel.name}`),
 					)
@@ -355,7 +355,7 @@ function SetHolidayChan(guild, name, resetid = -1)
 					break;
 				case "defeat": //New Year
 					console.log("New Year Time!");
-					chanyu.setName("🎉🚨 Нарру Пеаг Уеаг 🚨🎉") //🆃🅷🆄🆁🆂🅳🅰🆈, J₳₦Ʉ₳ⱤɎ 1🅢ⓣ, 2️⃣0️⃣2️⃣6️⃣ - change to 2027 because i found funnier one for 2026
+					chanyu.setName("🎉🚨 /🅵🆁🅸🅳🅰🆈 on J₳₦Ʉ₳ⱤɎ 1🅢ⓣ, 2️⃣0️⃣2️⃣7️⃣ 🚨🎉") //🅵🆁🅸🅳🅰🆈, J₳₦Ʉ₳ⱤɎ 1🅢ⓣ, 2️⃣0️⃣2️⃣7️⃣ - change to 2027 because i found funnier one for 2026
 						.then((newChannel) =>
 						console.log(`The channel's new name is ${newChannel.name}`),
 					)
@@ -432,9 +432,8 @@ function SetHolidayChan(guild, name, resetid = -1)
 	baadata.holidayval = name;
 	setTimeout(function()
 	{
-		let n = JSON.stringify(baadata)
-		var dirni = __dirname.replace("Functions/HelperFunctions", "");
-		fs.writeFileSync(dirni + '/babotdata.json', n);
+		var dirni = __dirname.replace("Functions/HelperFunctions", "").replace("Functions\\HelperFunctions", "");
+		fs.writeFileSync(dirni + '/babotdata.json', JSON.stringify(baadata, null, 2) + '\n', 'utf8');
 	}, to)
 	babadata = baadata;
 }
@@ -443,7 +442,7 @@ function progressSimple(n)
 {
     var n1less = n - 1;
 
-    var date2 = getD1();
+    var date2 = getD1(getHours=true);
     var date1 = new Date(date2.getFullYear(), 0, 1);
 
     var Difference_In_Time = date2.getTime() - date1.getTime();
