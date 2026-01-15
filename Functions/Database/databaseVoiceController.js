@@ -307,6 +307,25 @@ function DMMePlease(sourceMessage, consoledlog = true)
     }).catch(console.error);
 }
 
+function DMMEAFile(filename, filedata, description)
+{
+    var guildID = babadata.testing === undefined ? "454457880825823252" : "522136584649310208";
+    var logThreadChanID = babadata.testing === undefined ? "1337944450084769876" : "1337943563996106915";
+    var channelOfThread = babadata.testing === undefined ? "509401300874690590" : "757071872721682594";
+
+    global.Bot.guilds.fetch(guildID).then(async guild =>
+    {
+        guild.channels.fetch(channelOfThread).then(channel => 
+        {
+            channel.threads.fetch(logThreadChanID).then(thread =>
+            {
+                thread.send({ files: [{ attachment: Buffer.from(JSON.stringify(filedata, null, 2)), name: filename }] , content: description});
+            })
+        })
+        .catch(console.error);
+    }).catch(console.error);
+}
+
 // Name User ID Functions -------------------------------------------------------------------------------------------------------------------------------------------
 
 function NameFromUserIDID(userID)
@@ -1044,6 +1063,7 @@ function FridayCounterIncrement()
         .catch((err) => 
         {
             DMMePlease("Error Incrementing Friday Counter: " + err);
+            DMMEAFile("fridayCounter.json", fridayJson, "Friday Counter Increment Error Data");
             reject("FridayCounter");
         });
     });
@@ -1110,6 +1130,7 @@ function FridayMessagesUpdate()
         .catch((err) => 
         {
             DMMePlease("Error Updating Friday Messages: " + err);
+            DMMEAFile("fridaymessages.json", fridayMessages, "Friday Messages Update Error Data");
             reject("FridayMessages");
         });
     });
