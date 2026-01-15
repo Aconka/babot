@@ -659,7 +659,7 @@ function TextCommandBackup(bot, message, sentvalid, msgContent, g)
 		{
 			// reset the fridaycounter.json and fridaymessages.json to empty
 			fs.writeFileSync(babadata.datalocation + "fridayCounter.json", "{}");
-			fs.writeFileSync(babadata.datalocation + "fridaymessages.json", "{}");
+			fs.writeFileSync(babadata.datalocation + "fridaymessages.json", "[]");
 		}
 		else if (msgContent.includes("treecapitator"))
 		{
